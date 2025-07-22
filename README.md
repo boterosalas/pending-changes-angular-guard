@@ -25,12 +25,18 @@ Antes de crear o editar un elemento, puedes elegir entre dos modos de visualizac
 
 ## 📷 Vista previa
 
-> Al hacer clic sobre una fila, se abre el formulario de edición. Si realizas cambios y tratas de navegar fuera sin guardar, verás un mensaje de confirmación como este:
+Al hacer clic sobre una fila, se abre el formulario de edición. Si realizas cambios y tratas de navegar fuera sin guardar, verás un mensaje de confirmación como este:
 
+- **Listado de elementos**
 ![Listado de elementos](./public/listado-elementos.png)
 
+- **Formulario en formato de modal**
 ![Modal formulario](./public/modal-formulario.png)
 
+- **Formulario en formato page**
+![Page formulario](./public/page-formulario.png)
+
+- **Modal confirmación de salida**
 ![Confirmación de salida sin guardar](./public/modal-confirmacion.png)
 
 ---
