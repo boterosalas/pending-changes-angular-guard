@@ -1,0 +1,27 @@
+<ng-template #editTodoTemplate>
+  <div class="edit-modal">
+    <mat-icon class="close-modal" (click)="closeModal()">
+      close
+    </mat-icon>
+    <h2 class="edit-modal__title">Atención</h2>
+    <p class="edit-modal__description">
+      Si haces algún cambio en el formulario e intentas cerrar la modal, va aparecer una nueva modal para confirmar que deseas salir sin guardar los cambios.
+    </p>
+    <form [formGroup]="todoForm" *ngIf="todoForm; else formLoading">
+      <mat-form-field appearance="outline" class="edit-modal__field">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="title" />
+      </mat-form-field>
+      <mat-checkbox class="edit-modal__checkbox" formControlName="completed">
+        Completed
+      </mat-checkbox>
+      <div class="edit-modal__btn-group">
+        <button mat-stroked-button (click)="closeModal()">Cancel</button>
+        <button mat-flat-button (click)="updateTodo()">Save</button>
+      </div>
+      </form>
+    <ng-template #formLoading>
+      <div class="loading form-loading"></div>
+    </ng-template>
+  </div>
+</ng-template>

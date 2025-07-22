@@ -1,0 +1,17 @@
+.confirm-modal {
+  padding: 40px 16px;
+
+  .confirm-modal__title{
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .confirm-modal__btn-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}

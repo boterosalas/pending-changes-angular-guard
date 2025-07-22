@@ -1,0 +1,32 @@
+<section class="edit-section">
+  <button
+    (click)="navigateToSummary()"
+    mat-button
+    class="edit-section__go-back"
+  >
+    <mat-icon>chevron_left</mat-icon>
+    <span class="edit-section__go-back-label"> Volver al listado </span>
+  </button>
+  <h2 class="edit-section__title">Atención</h2>
+  <p class="edit-section__description">
+    Si haces algún cambio en el formulario e intentas devolverte a la sección
+    del listado, va aparecer una nueva modal para confirmar que deseas salir sin
+    guardar los cambios.
+  </p>
+  <form [formGroup]="todoForm" *ngIf="todoForm; else formLoading">
+    <mat-form-field appearance="outline" class="edit-section__field">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="title" />
+    </mat-form-field>
+    <mat-checkbox class="edit-section__checkbox" formControlName="completed">
+      Completed
+    </mat-checkbox>
+    <div class="edit-section__btn-group">
+      <button mat-stroked-button (click)="navigateToSummary()">Cancel</button>
+      <button mat-flat-button (click)="updateTodo()">Save</button>
+    </div>
+  </form>
+  <ng-template #formLoading>
+    <div class="loading form-loading"></div>
+  </ng-template>
+</section>

@@ -1,59 +1,93 @@
-# PendingChanges
+# 🛡️ Arquetipo Angular – CanDeactivate Guard con Confirmación de Cambios no Guardados
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+Este proyecto es un **arquetipo en Angular** que demuestra una implementación completa y reutilizable del guard `CanDeactivate`. Su propósito es **proteger al usuario de perder cambios no guardados** en un formulario, mostrando una ventana modal de confirmación antes de abandonar la ruta.
 
-## Development server
+## 📌 Objetivo
 
-To start a local development server, run:
+Prevenir que los usuarios abandonen un formulario con datos modificados sin haber guardado, solicitando confirmación antes de cambiar de ruta, y garantizando una navegación segura y controlada en aplicaciones Angular.
 
-```bash
-ng serve
+---
+
+## 📷 Vista previa
+
+> Al hacer clic sobre una fila, se abre el formulario de edición. Si realizas cambios y tratas de navegar fuera sin guardar, verás un mensaje de confirmación como este:
+
+![Confirmación de salida sin guardar](./ruta-a-la-imagen/confirmacion-salida.png)
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+Este arquetipo está desarrollado con:
+
+| Tecnología                                       | Versión Estimada | Uso Principal                           |
+| ------------------------------------------------ | ---------------- | --------------------------------------- |
+| [Angular](https://angular.io/)                   | 19               | Framework base                          |
+| [Angular Material](https://material.angular.io/) | 19               | Diálogos (MatDialog), diseño responsivo |
+| [RxJS](https://rxjs.dev/)                        | 7+               | Observables, manejo reactivo            |
+| TypeScript                                       | 5+               | Tipado estricto                         |
+| SCSS                                             | -                | Estilos del proyecto                    |
+| HTML Semántico                                   | -                | Estructura del DOM                      |
+| Ruteo Angular (`@angular/router`)                | -                | Navegación y guards                     |
+
+---
+
+## Guard (`CanDeactivate`)
+
+Este guard (`pendingChanges.guard.ts`) evalúa si el componente implementa la interfaz y tiene cambios pendientes:
+
+- Si no hay cambios, se permite la navegación.
+- Si hay cambios, se muestra un diálogo de confirmación usando `MatDialog`.
+
+```
+export const pendingChangesGuard: CanDeactivateFn<FormCanDeactivate> = (
+  component
+): Observable<boolean> => {
+  const dialog = inject(MatDialog);
+
+  if (!component.hasUnsavedChanges()) {
+    component.dialogRef?.close();
+    return of(true);
+  }
+
+  const dialogRef = dialog.open(ConfirmExitDialogComponent, {
+    width: '400px',
+    backdropClass: 'confirm-modal-backdrop'
+  });
+
+  return dialogRef.afterClosed().pipe(
+    map((shouldClose) => {
+      if (shouldClose) {
+        component.dialogRef?.close();
+        return true;
+      }
+      return false;
+    })
+  );
+};
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Diálogo de confirmación (Angular Material)
 
-## Code scaffolding
+Se muestra una ventana modal con el mensaje:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+> “¿Deseas salir sin guardar los cambios?”
 
-```bash
-ng generate component component-name
+Botones disponibles:
+
+- "Sí": continúa con la navegación.
+- "No": cancela el cambio de ruta.
+
+## Guardado del formulario
+
+Una vez que el formulario se guarda con éxito, se invoca:
+
+```
+this.form.markAsPristine();
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Consideraciones adicionales
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- El guard solo funciona si el componente objetivo está activo en la ruta.
+- Si el formulario se abre en una ruta hija o como modal, debe mantenerse la referencia activa del componente en el árbol de rutas.
+- Idealmente, el componente del formulario (EditFormComponent) puede ubicarse dentro de una carpeta components/ anidada dentro del componente contenedor (SummaryComponent) para mantener una arquitectura limpia.

@@ -1,0 +1,150 @@
+<section class="summary-section">
+  <h1 class="summary-section__title">Lista de tareas</h1>
+  <p class="summary-section__description">
+    Al hacer clic sobre una fila, se abrirá un formulario con los datos del
+    elemento seleccionado para que puedas visualizarlos o editarlos.
+  </p>
+  <div class="summary-section__add-group">
+    <div>
+      <p class="summary-section__form-type-label">
+        Selecciona el formato del formulario
+      </p>
+      <mat-radio-group
+        aria-label="Select an option"
+        [formControl]="formTypeControl"
+      >
+        <mat-radio-button value="modal">Modal</mat-radio-button>
+        <mat-radio-button value="page">Page</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button mat-fab extended (click)="addNewTodo()">
+      <mat-icon>add</mat-icon>
+      New
+    </button>
+  </div>
+  <div
+    class="mat-elevation-z8 summary-section__todo-list"
+    >
+    <!-- *ngIf="todos.length; else tableLoading" -->
+    <table mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef>Completed</th>
+        <td mat-cell *matCellDef="let element">{{ element.completed }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="onSelectTodo(row)"
+      ></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+  <ng-template #tableLoading>
+    <ng-container *ngFor="let row of [].constructor(3)">
+      <div class="table-loading loading"></div>
+      <div class="table-loading"></div>
+    </ng-container>
+  </ng-template>
+  <h2>Descripción general del arquetipo</h2>
+  <p>
+    Este arquetipo demuestra cómo utilizar un guard
+    <code class="code-span">CanDeactivate</code> en Angular para prevenir que el
+    usuario pierda cambios no guardados en un formulario. Cuando el formulario
+    tiene datos sin guardar (<code class="code-span">dirty</code>) y el usuario
+    intenta navegar a otra ruta, se muestra un diálogo de confirmación para
+    evitar la pérdida de información.
+  </p>
+  <h2>¿Cómo funciona?</h2>
+  <ol>
+    <li>
+      <p><strong>Detección de cambios en el formulario:</strong></p>
+      <ul>
+        <li>
+          El componente implementa una interfaz personalizada (<code
+            class="code-span"
+            >FormCanDeactivate</code
+          >) con un método hasUnsavedChanges() que devuelve
+          <code class="code-span">true</code> si el formulario está sucio (<code
+            class="code-span"
+            >dirty</code
+          >) o modificado.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <strong>Guard <code class="code-span">CanDeactivate</code></strong>
+      </p>
+      <ul>
+        <li>
+          <p>
+            El guard evalúa si hay cambios sin guardar antes de permitir la
+            navegación.
+          </p>
+        </li>
+        <li>
+          <p>
+            Si detecta cambios, se abre un diálogo de confirmación utilizando
+            Angular Material (<code class="code-span">MatDialog</code>).
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <strong>Confirmación del usuario:</strong>
+      </p>
+      <ul>
+        <li>
+          <p>Si el usuario elige "Sí, salir", se permite la navegación.</p>
+        </li>
+        <li>
+          <p>
+            Si el usuario elige "No, permanecer", se cancela el cambio de ruta y
+            se mantiene en el formulario.
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <strong>Lógica de guardado:</strong>
+      </p>
+      <ul>
+        <li>
+          <p>
+            Una vez que se guarda el formulario, se marca como no sucio (<code
+              class="code-span"
+              >form.markAsPristine()</code
+            >), lo que desactiva el guard para futuras salidas.
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <p>
+    El <code class="code-span">CanDeactivate</code> funciona únicamente si el
+    componente que se está intentando dejar está activo en la ruta. Por eso, es
+    importante estructurar correctamente las rutas y mantener la referencia al
+    componente cuando se utiliza en conjunto con modales o rutas hijas.
+  </p>
+</section>
+
+<router-outlet />
