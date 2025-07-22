@@ -135,4 +135,3 @@ this.form.markAsPristine();
 
 - El guard solo funciona si el componente objetivo está activo en la ruta.
 - Si el formulario se abre en una ruta hija o como modal, debe mantenerse la referencia activa del componente en el árbol de rutas.
-- Idealmente, el componente del formulario (EditFormComponent) puede ubicarse dentro de una carpeta components/ anidada dentro del componente contenedor (SummaryComponent) para mantener una arquitectura limpia.
