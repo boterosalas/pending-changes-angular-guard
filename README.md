@@ -10,6 +10,8 @@ Prevenir que los usuarios abandonen un formulario con datos modificados sin habe
 
 ## 🧪 Cómo interactuar con el demo
 
+Puedes ver rápidamente el demo [aquí](https://boterosalas.github.io/pending-changes-angular-guard/summary)
+
 Este proyecto incluye dos escenarios para demostrar cómo funciona un CanDeactivate en Angular al intentar salir de un formulario con cambios no guardados:
 
 ### Selección de modo de visualización
