@@ -22,9 +22,7 @@
       New
     </button>
   </div>
-  <div
-    class="mat-elevation-z8 summary-section__todo-list"
-    >
+  <div>
     <!-- *ngIf="todos.length; else tableLoading" -->
     <table mat-table [dataSource]="dataSource">
       <!-- Position Column -->
@@ -50,6 +48,7 @@
         mat-row
         *matRowDef="let row; columns: displayedColumns"
         (click)="onSelectTodo(row)"
+        class="select-row"
       ></tr>
     </table>
 
