@@ -13,7 +13,7 @@ export const routes: Routes = [
         path: 'edit/:id',
         loadComponent: () =>
           import(
-            './ui/pages/summary/components/edit-form-modal/edit-form-modal.component'
+            './ui/components/edit-form-modal/edit-form-modal.component'
           ).then((m) => m.EditFormModalComponent),
         canDeactivate: [pendingChangesGuard],
       },
@@ -21,7 +21,7 @@ export const routes: Routes = [
         path: 'new',
         loadComponent: () =>
           import(
-            './ui/pages/summary/components/edit-form-modal/edit-form-modal.component'
+            './ui/components/edit-form-modal/edit-form-modal.component'
           ).then((m) => m.EditFormModalComponent),
         canDeactivate: [pendingChangesGuard],
       },

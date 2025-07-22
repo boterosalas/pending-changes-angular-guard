@@ -17,11 +17,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Todo, TodoInputValue } from '../../../../../core/models/todos';
-import { FormCanDeactivate } from '../../../../../core/guards/pending-changes.guard';
+import { Todo, TodoInputValue } from '../../../core/models/todos';
+import { FormCanDeactivate } from '../../../core/guards/pending-changes.guard';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TodosService } from '../../../../../core/services/todos.service';
+import { TodosService } from '../../../core/services/todos.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 

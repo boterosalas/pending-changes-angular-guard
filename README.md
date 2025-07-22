@@ -17,9 +17,10 @@ Este proyecto incluye dos escenarios para demostrar cómo funciona un CanDeactiv
 Antes de crear o editar un elemento, puedes elegir entre dos modos de visualización mediante un selector de tipo `radio`:
 
 - **Page**: Abre el formulario de creación/edición en una nueva página. Este enfoque es útil cuando deseas una navegación tradicional entre rutas.
-- **Modal**: Abre el formulario en una ventana modal (diálogo). Este patrón es útil para mantener al usuario en contexto sin cambiar de ruta, ideal para acciones rápidas o flujos más compactos.
 
-> Ambos modos están integrados con la misma lógica de guard (CanDeactivate) que detecta si el formulario tiene cambios sin guardar y solicita confirmación antes de salir.
+- **Modal**: Muestra el formulario en una ventana modal, pero también cambia la ruta (por ejemplo, de `/summary` a `/summary/edit/:id`). Este enfoque mantiene visualmente al usuario en el contexto del listado, pero permite aplicar correctamente el `CanDeactivate` gracias al cambio de ruta. Es ideal para casos donde se quiere mantener el estado del listado visible, pero con control de navegación segura.
+
+> En ambos casos, si el usuario intenta salir con cambios sin guardar, se activará el guard que mostrará una advertencia para confirmar la acción.
 
 ---
 
@@ -28,16 +29,16 @@ Antes de crear o editar un elemento, puedes elegir entre dos modos de visualizac
 Al hacer clic sobre una fila, se abre el formulario de edición. Si realizas cambios y tratas de navegar fuera sin guardar, verás un mensaje de confirmación como este:
 
 - **Listado de elementos**
-![Listado de elementos](./public/listado-elementos.png)
+  ![Listado de elementos](./public/listado-elementos.png)
 
 - **Formulario en formato de modal**
-![Modal formulario](./public/modal-formulario.png)
+  ![Modal formulario](./public/modal-formulario.png)
 
 - **Formulario en formato page**
-![Page formulario](./public/page-formulario.png)
+  ![Page formulario](./public/page-formulario.png)
 
 - **Modal confirmación de salida**
-![Confirmación de salida sin guardar](./public/modal-confirmacion.png)
+  ![Confirmación de salida sin guardar](./public/modal-confirmacion.png)
 
 ---
 

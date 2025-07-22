@@ -18,7 +18,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FORM_TYPE } from '../../../core/constants/storage-keys';
 import { FORM_TYPE_VALUE } from '../../../core/constants/form-type';
 import { CommonModule } from '@angular/common';
-import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
@@ -43,7 +42,6 @@ export class SummaryComponent implements OnInit {
   private todosService = inject(TodosService);
   private changeDetectorRef = inject(ChangeDetectorRef);
   private router = inject(Router);
-  selectedTodo: any;
 
   displayedColumns: string[] = ['position', 'title', 'completed'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -59,15 +57,14 @@ export class SummaryComponent implements OnInit {
     this.todosService.getTodos().subscribe({
       next: (todos: Todo[]) => {
         this.todos = todos;
+        this.changeDetectorRef.detectChanges();
         this.dataSource.data = todos;
         this.dataSource.paginator = this.paginator;
-        this.changeDetectorRef.detectChanges();
       },
     });
   }
 
   onSelectTodo(row: Todo): void {
-    this.selectedTodo = row;
     const formType = localStorage.getItem(FORM_TYPE);
     if (formType === FORM_TYPE_VALUE.modal) {
       this.router.navigateByUrl(`/summary/edit/${row.id}`);

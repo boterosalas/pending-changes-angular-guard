@@ -22,22 +22,18 @@
       New
     </button>
   </div>
-  <div>
-    <!-- *ngIf="todos.length; else tableLoading" -->
+  <div *ngIf="todos.length; else tableLoading">
     <table mat-table [dataSource]="dataSource">
-      <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef>No.</th>
         <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
         <td mat-cell *matCellDef="let element">{{ element.title }}</td>
       </ng-container>
 
-      <!-- Weight Column -->
       <ng-container matColumnDef="completed">
         <th mat-header-cell *matHeaderCellDef>Completed</th>
         <td mat-cell *matCellDef="let element">{{ element.completed }}</td>
